@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head th:replace="layout/template :: head">
+        <title>Edit person</title>
+        <meta charset="UTF-8"/>
+    </head>
+    <body>
+        <section th:fragment="editPerson">
+            <form th:action="@{/save}" method="post" th:object="${persona}" class="was-valited">
+                <section th:replace="layout/buttonsEdit :: buttonsEdit"></section>
+
+                <div id="details">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>[[#{person.action.edit}]]</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <label for="nombre">[[#{person.name}]]:</label>
+                                            <input type="text" name="nombre" th:field="*{nombre}" class="form-control" />
+                                            <span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}">Error Nombre</span>
+
+                                        </div>  
+
+                                        <div class="form-group">   
+                                            <label for="lastName">[[#{person.lastName}]]:</label>
+                                            <input type="text" name="lastName" th:field="*{apellido}" class="form-control" />
+                                            <span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}">Error Apellido</span>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="email">[[#{person.email}]]:</label>
+                                            <input type="text" name="email" th:field="*{email}"  class="form-control" />
+                                            <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Error Email</span>
+                                        </div>       
+
+                                        <div class="form-group">
+                                            <label for="phone">[[#{person.phone}]]:</label>
+                                            <input type="tel" name="phone" th:field="*{telefono}" class="form-control" />
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="balance">[[#{person.phone}]]:</label>
+                                            <input type="number" name="balance" th:field="*{saldo}" class="form-control" />
+                                        </div>                        
+
+
+                                     
+
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <section th:replace="layout/buttonsEdit :: buttonsEdit"></section>    
+
+
+            </form>
+        </section>
+    </body>
+</html>

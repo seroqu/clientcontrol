@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>List people</title>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <section th:fragment="listPeople" id="clients">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4>[[#{people.titlelist}]]</h4>
+                            </div>
+                            <div>
+                                <div th:if="${personas != null and !personas.empty}">
+                                    <table class="table table-stryped">
+                                        <thead class="thead-dark">
+                                            <tr>
+                                                <th>#</th>        
+                                                <th>[[#{person.name}]]</th>
+                                                <!--   <th>[[#{person.email}]]</th>
+                                                 <th>[[#{person.phone}]]</th>-->
+                                                <th>[[#{person.balance}]]</th>
+                                                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{person.action.edit}]]</th>
+                                                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{person.action.delete}]]</th>
+                                                <th sec:authorize="hasRole('ROLE_ADMIN')">[[#{person.action.delete2}]]</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="persona,contador : ${personas}">
+                                                <td th:text="${contador.count}"></td>
+                                                <td> [[${persona.nombre} + ' ' + ${persona.apellido}]]</td>
+                                                <!-- <td th:text="${persona.email}"></td>
+                                                 <td th:text="${persona.telefono}"></td> -->
+                                                <td> [[${new java.text.DecimalFormat('$#,##0.00').format(persona.saldo)}]] </td>
+                                                <td sec:authorize="hasRole('ROLE_ADMIN')">
+                                                    <a th:href="@{/edit/} + ${persona.idPersona}" class="btn btn-secondary">
+                                                        <i class="fas fa-angle-double-right"></i> [[#{person.action.edit}]]    
+                                                    </a>
+                                                </td>
+                                                <td sec:authorize="hasRole('ROLE_ADMIN')"> 
+                                                    <a th:href="@{/delete/} + ${persona.idPersona}" class="btn btn-dark" >
+                                                        <i class="fas fa-angle-double-right"></i> [[#{person.action.delete}]]    
+                                                    </a>
+                                                </td>
+                                                <td sec:authorize="hasRole('ROLE_ADMIN')"> 
+                                                    <a th:href="@{/delete2(idPersona=${persona.idPersona})}"  class="btn btn-dark">
+                                                        <i class="fas fa-angle-double-right"></i> [[#{person.action.delete2}]]
+                                                    </a>
+                                                </td>
+                                            </tr>    
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="text-center p-2" th:if="${personas == null or personas.empty}">
+                                    <span>[[#{person.emptyList}]]</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card text-center bg-danger text-white mb-3">
+                            <div class="card-body">
+                                <h3>[[#{persona.totalBalance}]]</h3>
+                                <h4 class="display-4">
+                                    [[${new java.text.DecimalFormat('$#,##0.00').format(totalBalance)}]]
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="card text-center bg-success text-white mb-3">
+                            <h3>[[#{person.totalPeople}]]</h3>
+                            <h4 class="display-4">[[${totalPeople}]]</h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+    </body>
+</html>
